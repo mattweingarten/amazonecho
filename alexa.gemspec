@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "For simple interaction with amazon echo"
   s.authors     = ["Matt Weingarten"]
   s.email       = 'matt@weingarten.org'
-  s.files       = ["lib/alexa.rb", "lib/initializable.rb", "lib/responsible.rb"]
+  s.files       = ["lib/alexa.rb", "lib/alexa/initializable.rb", "lib/alexa/responsible.rb"]
   s.homepage    =
     'http://rubygems.org/gems/alexa'
   s.license       = 'MIT'
