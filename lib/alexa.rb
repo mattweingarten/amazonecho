@@ -1,8 +1,10 @@
 class Alexa
     include Responsible
     include Initializable
+
     attr_accessor :session_attributes, :response, :res
     attr_reader :app_id, :intent, :session_new
+    
     def initialize(args={})
       @app_id = app_id
       @session_attributes = session_attributes
@@ -11,6 +13,9 @@ class Alexa
       @res = build_response(args)
     end
 
+    def self.intention_selector(alexa=@alexa)
+     send("#{alexa.intent}")
+    end
 
     def statement(text)
       self.text(text)
