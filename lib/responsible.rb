@@ -1,4 +1,4 @@
-module Responsable
+module Responsible
   def ssml?(text)
    text.include?('<speak>') ? true : false
   end
@@ -12,5 +12,5 @@ module Responsable
     }
   }
   end
-  
+
 end

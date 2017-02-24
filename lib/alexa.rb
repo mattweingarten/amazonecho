@@ -1,5 +1,5 @@
 class Alexa
-    include Responsable
+    include Responsible
     include Initializable
     attr_accessor :session_attributes, :response, :res
     attr_reader :app_id, :intent, :session_new
@@ -51,5 +51,4 @@ class Alexa
       end
       self
     end
-
 end
