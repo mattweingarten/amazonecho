@@ -1,16 +1,23 @@
 class Alexa
-    include Responsible
-    include Initializable
+
     attr_accessor :session_attributes, :response, :res
     attr_reader :app_id, :intent, :session_new
+
     def initialize(args={})
-      @app_id = app_id
-      @session_attributes = session_attributes
-      @session_new = session_new
-      @intent = parse_intent(args)
-      @res = build_response(args)
+      @app_id = Initializable.app_id
+      @session_attributes = Initializable.session_attributes
+      @session_new = Initializable.session_new
+      @intent = Initializable.parse_intent(args)
+      @res = Initializable.build_response(args)
     end
 
+    def self.intention_selector(alexa=@alexa)
+     send("#{alexa.intent}")
+    end
+
+    def self.verify?(id)
+      id == ENV['APP_ID']
+    end
 
     def statement(text)
       self.text(text)
@@ -25,16 +32,12 @@ class Alexa
     end
 
     def reprompt(text)
-      if ssml?(text)
+      if Responsible.ssml?(text)
         @res[:response][:reprompt] = {outputSpeech: {type: "SSML", ssml: text}}
       else
         @res[:response][:reprompt] =  {outputSpeech: {type: "PlainText", text: text}}
       end
       self
-    end
-
-    def self.verify?(id)
-      id == ENV['APP_ID']
     end
 
     private
@@ -44,7 +47,7 @@ class Alexa
     end
 
     def text(text)
-      if ssml?(text)
+      if Responsible.ssml?(text)
         @res[:response] = {outputSpeech: {type: "SSML", ssml: text}}
       else
         @res[:response] =  {outputSpeech: {type: "PlainText", text: text}}
