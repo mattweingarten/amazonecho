@@ -4,7 +4,7 @@ class Alexa
 
     attr_accessor :session_attributes, :response, :res
     attr_reader :app_id, :intent, :session_new
-    
+
     def initialize(args={})
       @app_id = app_id
       @session_attributes = session_attributes
@@ -17,6 +17,10 @@ class Alexa
      send("#{alexa.intent}")
     end
 
+    def self.verify?(id)
+      id == ENV['APP_ID']
+    end
+    
     def statement(text)
       self.text(text)
       self.end_session(true)
@@ -36,10 +40,6 @@ class Alexa
         @res[:response][:reprompt] =  {outputSpeech: {type: "PlainText", text: text}}
       end
       self
-    end
-
-    def self.verify?(id)
-      id == ENV['APP_ID']
     end
 
     private
