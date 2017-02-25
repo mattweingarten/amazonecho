@@ -1,18 +1,17 @@
-class Alexa
-
+class AmazonEcho
     attr_accessor :session_attributes, :response, :res
     attr_reader :app_id, :intent, :session_new
 
     def initialize(args={})
-      @app_id = Initializable.app_id
-      @session_attributes = Initializable.session_attributes
-      @session_new = Initializable.session_new
+      @app_id = Initializable.app_id(args)
+      @session_attributes = Initializable.session_attributes(args)
+      @session_new = Initializable.session_new(args)
       @intent = Initializable.parse_intent(args)
       @res = Initializable.build_response(args)
     end
 
-    def self.intention_selector(alexa=@alexa)
-     send("#{alexa.intent}")
+    def self.intention_selector(alexa)
+     send("#{alexa.intent}", alexa)
     end
 
     def self.verify?(id)
@@ -40,7 +39,13 @@ class Alexa
       self
     end
 
-    private
+
+    def card(type, args={})
+      card = Cardable.new(type,args)
+      @res[:response][:card] = card.build_response
+    end
+
+    # private
 
     def end_session(boolean)
       self.res[:response][:shouldEndSession] = boolean
@@ -55,3 +60,7 @@ class Alexa
       self
     end
 end
+
+require 'amazonecho/initializable'
+require 'amazonecho/responsible'
+require 'amazonecho/cardable'
