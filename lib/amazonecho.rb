@@ -53,9 +53,9 @@ class AmazonEcho
 
     def text(text)
       if Responsible.ssml?(text)
-        @res[:response] = {outputSpeech: {type: "SSML", ssml: text}}
+        @res[:response][:outputSpeech] = {type: "SSML", ssml: text}
       else
-        @res[:response] =  {outputSpeech: {type: "PlainText", text: text}}
+        @res[:response][:outputSpeech] =  {type: "PlainText", text: text}
       end
       self
     end
