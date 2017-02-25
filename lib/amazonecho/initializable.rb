@@ -21,7 +21,8 @@ class AmazonEcho::Initializable
 
   def self.slots(args)
     slots = args[:request][:intent][:slots]
-    slots == nil ? [] : slots.values
+    slots == nil ? [] :
+    slots.each_with_object([]) { | (key, value), arr| arr << value["value"]} 
   end
 
   def self.build_response(args)
