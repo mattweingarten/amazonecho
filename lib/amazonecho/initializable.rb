@@ -11,7 +11,7 @@ class AmazonEcho::Initializable
   end
 
   def self.session_attributes(args)
-    args[:session][:attributes]
+    args[:session][:attributes][:session]
   end
 
   def self.session_new(args)
@@ -21,6 +21,9 @@ class AmazonEcho::Initializable
   def self.build_response(args)
   {
     version: args[:version],
+    sessionAttributes: {
+      session:{}
+    },
     response: {
       shouldEndSession: nil
     }

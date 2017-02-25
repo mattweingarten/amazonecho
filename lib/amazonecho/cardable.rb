@@ -2,13 +2,13 @@ class AmazonEcho::Cardable
   attr_accessor :type, :title, :content, :text, :small_img, :large_img
   def initialize(type,  args={})
     case type
-    when "Simple"
-      @type = "Simple"
+    when "Standard"
+      @type = "Standard"
       @title = args.fetch(:title, nil)
       @content = args.fetch(:content, nil)
       @text = args.fetch(:text, nil)
-    when "Standard"
-      @type = "Standard"
+    when "Simple"
+      @type = "Simple"
       @title = args.fetch(:title, nil)
     when "LinkAccount"
       @type = "LinkAccount"
@@ -17,9 +17,8 @@ class AmazonEcho::Cardable
     @large_img = args.fetch(:large_img, nil)
   end
 
-
   def build_response
-    card = {}
+    card = {type: self.type}
     case self.type
     when "Simple"
       unless self.title == nil then card[:title] = self.title end
@@ -32,5 +31,6 @@ class AmazonEcho::Cardable
     unless self.small_img == nil  && self.large_img == nil then card[:image] = {} end
     unless self.small_img == nil then card[:image][:smallImgUrl] = self.small_img end
     unless self.large_img == nil then card[:image][:largeImageUrl] = self.large_img end
+    card
   end
 end

@@ -4,10 +4,19 @@ class AmazonEcho
 
     def initialize(args={})
       @app_id = Initializable.app_id(args)
-      @session_attributes = Initializable.session_attributes(args)
       @session_new = Initializable.session_new(args)
+      if Initializable.session_attributes(args) == nil
+         @session_attributes = {}
+      else
+         @session_attributes = Initializable.session_attributes(args)
+      end
       @intent = Initializable.parse_intent(args)
       @res = Initializable.build_response(args)
+    end
+
+
+    def session
+      self.session_attributes[:session]
     end
 
     def self.intention_selector(alexa)
@@ -27,6 +36,7 @@ class AmazonEcho
     def question(text)
       self.text(text)
       self.end_session(false)
+      self.set_session
       self
     end
 
@@ -36,6 +46,7 @@ class AmazonEcho
       else
         @res[:response][:reprompt] =  {outputSpeech: {type: "PlainText", text: text}}
       end
+
       self
     end
 
@@ -44,6 +55,7 @@ class AmazonEcho
       card = Cardable.new(type,args)
       @res[:response][:card] = card.build_response
     end
+
 
     # private
 
@@ -59,8 +71,15 @@ class AmazonEcho
       end
       self
     end
+
+    def set_session
+      self.session_attributes.each do |key,value|
+        @res[:sessionAttributes][:session][key] = value
+      end
+    end
 end
 
 require 'amazonecho/initializable'
 require 'amazonecho/responsible'
 require 'amazonecho/cardable'
+require 'alexa_responder'
