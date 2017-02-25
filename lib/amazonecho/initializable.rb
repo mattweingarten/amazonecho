@@ -11,11 +11,17 @@ class AmazonEcho::Initializable
   end
 
   def self.session_attributes(args)
-    args[:session][:attributes][:session]
+    attributes = args[:session][:attributes][:session]
+    attributes == nil ? {} : attributes
   end
 
   def self.session_new(args)
     args[:session][:attributes]
+  end
+
+  def self.slots(args)
+    slots = args[:request][:intent][:slots]
+    slots == nil ? [] : slots.values
   end
 
   def self.build_response(args)

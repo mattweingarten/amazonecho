@@ -1,17 +1,14 @@
 class AmazonEcho
     attr_accessor :session_attributes, :response, :res
-    attr_reader :app_id, :intent, :session_new
+    attr_reader :app_id, :intent, :session_new, :slots
 
     def initialize(args={})
       @app_id = Initializable.app_id(args)
       @session_new = Initializable.session_new(args)
-      if Initializable.session_attributes(args) == nil
-         @session_attributes = {}
-      else
-         @session_attributes = Initializable.session_attributes(args)
-      end
       @intent = Initializable.parse_intent(args)
+      @slots = Initializable.slots(args)
       @res = Initializable.build_response(args)
+      @session_attributes = Initializable.session_attributes(args)
     end
 
 
@@ -20,7 +17,7 @@ class AmazonEcho
     end
 
     def self.intention_selector(alexa)
-     send("#{alexa.intent}", alexa)
+     Responsible.slots_passer(alexa)
     end
 
     def self.verify?(id)
