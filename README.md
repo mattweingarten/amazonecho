@@ -50,7 +50,11 @@ ______
 
 ##Setup 
 First add `gem 'amazonecho'` to your gemfile then 
-to setup up the server create a new rails app, generate a controller: <br>
+to setup up the server create a new rails app and run the following rake command: <br>
+
+`$rake amazonecho 'build'`<br>
+
+Or do it manually and copy the following code into the IntentController:<br>
 `class IntentController < ApplicationController` <br>
 and copy the following code into it. Also it requires a already setup [Intent schema](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/alexa-skills-kit-interaction-model-reference) and [ngrok proxy](https://ngrok.com/) to your localhost.
 
