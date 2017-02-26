@@ -1,3 +1,3 @@
-# class AmazonEcho
-#   VERSION = "0.0.3"
-# end
+class AmazonEcho
+  VERSION = "1.0.8"
+end
