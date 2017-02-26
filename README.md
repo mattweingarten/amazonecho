@@ -49,37 +49,10 @@ Make sure to do this before you call the question method.
 ______
 
 ##Setup 
-First add `gem 'amazonecho'` to your gemfile then 
-to setup up the server create a new rails app and run the following rake command: <br>
-
-`$rake amazonecho 'build'`<br>
-
-Or do it manually and copy the following code into the IntentController:<br>
-`class IntentController < ApplicationController` <br>
-and copy the following code into it. Also it requires a already setup [Intent schema](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/alexa-skills-kit-interaction-model-reference) and [ngrok proxy](https://ngrok.com/) to your localhost.
-
-```ruby
-class IntentController < ApplicationController
-  skip_before_action  :verify_authenticity_token
-
-  def intents
-    respond_to do |format|
-      format.json {
-        render json: AlexaResponder.responds_to_alexa_requests(params)
-      }
-    end
-  end
-end
-````
-
-Make sure to update the routes.rb aswell:
-
-```ruby
-Rails.application.routes.draw do
-  root to: 'intent#intents'
-  post '/intents', to: 'intent#intents'
-end
-```
+First add `gem 'amazonecho'` to your gemfile
+Then run the following rake command `$rake amazonecho`
+this will generate an intent_controller, and the required routes(Be careful this version overwrites all the routes).
+Also it requires an [Intent schema](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/alexa-skills-kit-interaction-model-reference) and [ngrok proxy](https://ngrok.com/) to your localhost.
 
 
 After that you can just write methods for each Intent, so lets say we have the "ExampleIntent" in our Intentschema, 
