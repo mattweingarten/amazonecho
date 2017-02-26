@@ -1,5 +1,4 @@
 #Amazon Echo Skills gem 
-___
 
 ##Summary
 
