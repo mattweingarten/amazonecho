@@ -12,9 +12,9 @@ class AmazonEcho
     end
 
 
-    def session
-      self.session_attributes[:session]
-    end
+    # def session
+    #   self.session_attributes[:session]
+    # end
 
     def self.intention_selector(alexa)
      Responsible.slots_passer(alexa)
@@ -80,3 +80,4 @@ require 'amazonecho/initializable'
 require 'amazonecho/responsible'
 require 'amazonecho/cardable'
 require 'alexa_responder'
+require 'amazonecho/railtie' if defined?(Rails)
