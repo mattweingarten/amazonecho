@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'amazonecho'
-  s.version     = '1.0.8'
+  s.version     = '1.0.9'
   s.date        = '2017-02-24'
   s.summary     = "Creating Alexa skills made easy"
   s.description = "Creating Alexa skills made easy"
