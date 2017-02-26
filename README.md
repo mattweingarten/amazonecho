@@ -117,7 +117,7 @@ def example(alexa, slot1, slot2, slot3)
     alexa.statement("False")
 end
 ```
-**Important:** Sometimes the slots are not in the same order because of the way amazon sends the request, doublecheck if the 
+**Important:** Sometimes the slots are not in the same order as your Intent schema slots because of the way amazon sends the request, doublecheck if the 
 slots contain the information you want or switch the ordering.(Working on a solution)
 
 
